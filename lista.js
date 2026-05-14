@@ -17,6 +17,15 @@ class Caja {
         this.toggle();
     }
 
+    vaciar() {
+        if (!this.lleno) {
+            alert("La caja ya está vacía");
+            return;
+        }
+        this.valor = null;
+        this.toggle();
+    }
+
 }
 
 class Nodo {
