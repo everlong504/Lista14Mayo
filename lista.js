@@ -9,6 +9,10 @@ class Caja {
     }
 
     llenar(val) {
+        if (this.lleno) {
+            alert("La caja ya está llena");
+            return;
+        }
         this.valor = val;
         this.toggle();
     }
