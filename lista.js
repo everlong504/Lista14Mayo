@@ -130,21 +130,16 @@ class ListaDoblementeEnlazada {
     }
 
     cantidadElementos() {
-
-        const listaElementos = document.getElementById("datos");
-
-        let cantidad = 0;
         let actual = this.cabeza;
-        while (actual) {
-            cantidad++;
+        let contador = 0;
+        while (actual !== null) {
+            contador++;
             actual = actual.siguiente;
         }
-
-        listaElementos.textContent = cantidad;
-
+        return alert("Hay " + contador + " en la lista");
     }
 
-    sumaElementos() {
+    Sumatoria() {
 
 
         const listaElementos = document.getElementById("datos");
@@ -155,8 +150,7 @@ class ListaDoblementeEnlazada {
             actual = actual.siguiente;
         }
 
-        listaElementos.textContent = suma;
-
+        alert("La sumatoria es de: " + suma);
     }
 
 }
