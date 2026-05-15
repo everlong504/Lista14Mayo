@@ -226,91 +226,13 @@ function printCaja() {
     }
 }
 
-function generarCaja(id, nombre) {
-    // Crear el contenedor de la columna
-    const colDiv = document.createElement('div');
-    colDiv.className = 'col-md-4 mb-3'; // Ajusta el tamaño según necesites, col-md-4 para mini
-
-    // Crear la card
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-
-    // Crear el card-body
-    const cardBodyDiv = document.createElement('div');
-    cardBodyDiv.className = 'card-body';
-
-    // Crear la tabla
-    const table = document.createElement('table');
-    table.className = 'table';
-
-    // Crear el thead
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    const th1 = document.createElement('th');
-    th1.scope = 'col';
-    th1.textContent = '#';
-    const th2 = document.createElement('th');
-    th2.scope = 'col';
-    th2.textContent = 'Nombre Completo';
-    headerRow.appendChild(th1);
-    headerRow.appendChild(th2);
-    thead.appendChild(headerRow);
-
-    // Crear el tbody
-    const tbody = document.createElement('tbody');
-    const bodyRow = document.createElement('tr');
-    const thRow = document.createElement('th');
-    thRow.scope = 'row';
-    thRow.textContent = id;
-    const td = document.createElement('td');
-    td.textContent = nombre;
-    bodyRow.appendChild(thRow);
-    bodyRow.appendChild(td);
-    tbody.appendChild(bodyRow);
-
-    // Ensamblar la tabla
-    table.appendChild(thead);
-    table.appendChild(tbody);
-
-    // Ensamblar la card
-    cardBodyDiv.appendChild(table);
-    cardDiv.appendChild(cardBodyDiv);
-    colDiv.appendChild(cardDiv);
-
-    return colDiv;
-}
 
 function addCaja() {
     cajas.push(new Caja());
+    renderCajas();
 }
 
 function renderCajas() {
-    // creat this element in html
-    /*<div class="col">
-                <div class="card">
-                    <div class="card-body">
-
-
-
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                    <th scope="col">Lleno</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>ALEJANDRO RAMIREZ</td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>*/
     const contenedor = document.getElementById("cajascontainer");
     contenedor.innerHTML = "";
 
