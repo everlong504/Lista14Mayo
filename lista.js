@@ -69,6 +69,12 @@ class ListaDoblementeEnlazada {
     }
 
     ingresarAlFinal(valor, nombre) {
+
+        if (this.verificarId(valor)) {
+            document.getElementById('mensaje').textContent = "El ID ya existe.";
+            return;
+        }
+
         const nuevoNodo = new Nodo(valor, nombre);
         if (!this.cola) {
             this.cabeza = this.cola = nuevoNodo;
@@ -110,6 +116,12 @@ class ListaDoblementeEnlazada {
     }
 
     ingresarEnPosicion(valor, nombre, posicion) {
+        
+        if (this.verificarId(valor)) {
+            document.getElementById('mensaje').textContent = "El ID ya existe.";
+            return;
+        }
+        
         const nuevoNodo = new Nodo(valor, nombre);
         if (posicion === 0) {
             this.ingresarAlInicio(valor, nombre);
