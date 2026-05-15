@@ -1,13 +1,22 @@
 
-body{
+body {
     margin: 0;
     padding: 40px;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(90deg, #2d0c90, #7d10af);
+    min-height: 100vh;
+    background-image: linear-gradient(90deg, #ffb4ff, #995454);
 }
 
-button{
+button {
     width: 180px;
+}
+
+.row.row-cols-1.row-cols-md-3.g-3 {
+    gap: 1rem;
+}
+
+.card {
+    min-height: 100%;
 }

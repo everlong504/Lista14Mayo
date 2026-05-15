@@ -28,7 +28,6 @@ class Caja {
         this.valor = null;
         this.toggle();
     }
-
 }
 
 class Nodo {
@@ -76,51 +75,66 @@ class ListaDoblementeEnlazada {
             this.ingresarAlInicio(valor);
             return;
         }
+
         let actual = this.cabeza;
         for (let i = 0; i < posicion - 1 && actual; i++) {
             actual = actual.siguiente;
         }
+
         if (!actual) {
             this.ingresarAlFinal(valor);
             return;
         }
+
+        const nuevoNodo = new Nodo(valor);
         nuevoNodo.siguiente = actual.siguiente;
         nuevoNodo.anterior = actual;
+
         if (actual.siguiente) {
             actual.siguiente.anterior = nuevoNodo;
         }
+
         actual.siguiente = nuevoNodo;
+
         if (!nuevoNodo.siguiente) {
             this.cola = nuevoNodo;
         }
+
         this.imprimir();
     }
 
     quitarAlInicio() {
         if (!this.cabeza) return;
+
         this.cabeza = this.cabeza.siguiente;
+
         if (this.cabeza) {
             this.cabeza.anterior = null;
         } else {
             this.cola = null;
         }
+
         this.imprimir();
     }
 
     quitarAlFinal() {
         if (!this.cola) return;
+
         this.cola = this.cola.anterior;
+
         if (this.cola) {
             this.cola.siguiente = null;
         } else {
             this.cabeza = null;
         }
+
         this.imprimir();
     }
 
     imprimir() {
         const listaElementos = document.getElementById("lista");
         listaElementos.innerHTML = "";
+
         let actual = this.cabeza;
         while (actual) {
             const li = document.createElement("li");
@@ -134,6 +148,7 @@ class ListaDoblementeEnlazada {
     generarCaja() {
         const listaElementos = document.getElementById("lista");
         listaElementos.innerHTML = "";
+
         let actual = this.cabeza;
         while (actual) {
             const li = document.createElement("li");
@@ -147,8 +162,9 @@ class ListaDoblementeEnlazada {
     mostrarValEspecifico(indice) {
         let actual = this.cabeza;
         for (let i = 0; i <= indice; i++) {
-            if (i == indice)
+            if (i === indice) {
                 console.log(actual);
+            }
             actual = actual.siguiente;
         }
     }
@@ -156,6 +172,7 @@ class ListaDoblementeEnlazada {
     cantidadElementos() {
         let actual = this.cabeza;
         let contador = 0;
+
         while (actual !== null) {
             contador++;
             actual = actual.siguiente;
@@ -164,11 +181,9 @@ class ListaDoblementeEnlazada {
     }
 
     Sumatoria() {
-
-
-        const listaElementos = document.getElementById("datos");
         let suma = 0;
         let actual = this.cabeza;
+
         while (actual) {
             suma += actual.valor;
             actual = actual.siguiente;
@@ -176,21 +191,19 @@ class ListaDoblementeEnlazada {
 
         alert("La sumatoria es de: " + suma);
     }
-
 }
 
-const cajas = [new Caja, new Caja, new Caja, new Caja, new Caja];
-
+const cajas = [new Caja(), new Caja(), new Caja(), new Caja(), new Caja()];
 const lista = new ListaDoblementeEnlazada();
 
 function printCaja() {
     for (let i = 0; i < cajas.length; i++) {
-        console.log('Caja' + i + ': ' + cajas[i].valor + ', ' + cajas[i].lleno)
+        console.log('Caja' + i + ': ' + cajas[i].valor + ', ' + cajas[i].lleno);
     }
 }
 
 function addCaja() {
-    cajas.push(new Caja);
+    cajas.push(new Caja());
 }
 
 
