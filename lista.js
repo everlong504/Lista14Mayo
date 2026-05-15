@@ -1,4 +1,6 @@
-
+let atendidos = 0;
+let salioDeFila = 0;
+let maximoCajasEnUso = 0;
 
 //class caja
 class Caja {
@@ -80,6 +82,35 @@ class ListaDoblementeEnlazada {
             nuevoNodo.anterior = this.cola;
             this.cola.siguiente = nuevoNodo;
             this.cola = nuevoNodo;
+        }
+        this.imprimirLista();
+    }
+
+    quitarEnPosicion(valor, nombre, posicion) {
+        if (posicion === 0) {
+            this.quitarAlInicio();
+            return;
+        } else if (posicion === this.cantidadElementos() - 1) {
+            this.quitarAlFinal();
+            return;
+        }
+        let actual = this.cabeza;
+        for (let i = 0; i < posicion && actual; i++) {
+            actual = actual.siguiente;
+        }
+        if (!actual) return;
+
+        if (actual.anterior) {
+            actual.anterior.siguiente = actual.siguiente;
+        }
+        if (actual.siguiente) {
+            actual.siguiente.anterior = actual.anterior;
+        }
+        if (actual === this.cabeza) {
+            this.cabeza = actual.siguiente;
+        }
+        if (actual === this.cola) {
+            this.cola = actual.anterior;
         }
         this.imprimirLista();
     }
@@ -197,6 +228,23 @@ class ListaDoblementeEnlazada {
                 <td>${actual.nombre}</td>
                 `;
             tbody.appendChild(fila);
+
+            const eliminarBtn = document.createElement("button");
+            eliminarBtn.classList.add("btn", "btn-danger", "btn-sm");
+            eliminarBtn.textContent = "Eliminar";
+            eliminarBtn.addEventListener("click", () => {
+                if (contador === 1) {
+                    this.quitarAlInicio();
+                } else if (contador === this.cantidadElementos()) {
+                    this.quitarAlFinal();
+                } else {
+                    this.quitarEnPosicion(contador - 1);
+                }
+                salieronDeFila++;
+                this.imprimirLista();
+            });
+
+            fila.appendChild(eliminarBtn);
             actual = actual.siguiente;
             contador++;
         }
@@ -224,7 +272,7 @@ class ListaDoblementeEnlazada {
             contador++;
             actual = actual.siguiente;
         }
-        return alert("Hay " + contador + " en la lista");
+        return contador;
     }
 
 }
@@ -238,97 +286,17 @@ function printCaja() {
     }
 }
 
-function generarCaja(id, nombre) {
-    // Crear el contenedor de la columna
-    const colDiv = document.createElement('div');
-    colDiv.className = 'col-md-4 mb-3'; // Ajusta el tamaño según necesites, col-md-4 para mini
-
-    // Crear la card
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-
-    // Crear el card-body
-    const cardBodyDiv = document.createElement('div');
-    cardBodyDiv.className = 'card-body';
-
-    // Crear la tabla
-    const table = document.createElement('table');
-    table.className = 'table';
-
-    // Crear el thead
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    const th1 = document.createElement('th');
-    th1.scope = 'col';
-    th1.textContent = '#';
-    const th2 = document.createElement('th');
-    th2.scope = 'col';
-    th2.textContent = 'Nombre Completo';
-    headerRow.appendChild(th1);
-    headerRow.appendChild(th2);
-    thead.appendChild(headerRow);
-
-    // Crear el tbody
-    const tbody = document.createElement('tbody');
-    const bodyRow = document.createElement('tr');
-    const thRow = document.createElement('th');
-    thRow.scope = 'row';
-    thRow.textContent = id;
-    const td = document.createElement('td');
-    td.textContent = nombre;
-    bodyRow.appendChild(thRow);
-    bodyRow.appendChild(td);
-    tbody.appendChild(bodyRow);
-
-    // Ensamblar la tabla
-    table.appendChild(thead);
-    table.appendChild(tbody);
-
-    // Ensamblar la card
-    cardBodyDiv.appendChild(table);
-    cardDiv.appendChild(cardBodyDiv);
-    colDiv.appendChild(cardDiv);
-
-    return colDiv;
-}
 
 function addCaja() {
     cajas.push(new Caja());
+    renderCajas();
 }
 
 function renderCajas() {
-    // creat this element in html
-    /*<div class="col">
-                <div class="card">
-                    <div class="card-body">
-
-
-
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                    <th scope="col">Lleno</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>ALEJANDRO RAMIREZ</td>
-                                </tr>
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>*/
     const contenedor = document.getElementById("cajascontainer");
     contenedor.innerHTML = "";
 
     cajas.forEach((caja, index) => {
-
-        //if full, become red, if empty, green
         const div = document.createElement("div");
         div.classList.add("col");
 
@@ -388,6 +356,8 @@ function renderCajas() {
             } else if (!caja.lleno && lista.cabeza !== null) {
                 caja.llenar(lista.cabeza);
                 lista.quitarAlInicio();
+                maximoCajasEnUso++;
+                atendidos++;
                 renderCajas();
             }
         });
@@ -407,4 +377,9 @@ function renderCajas() {
         div.appendChild(card);
         contenedor.appendChild(div);
     });
+}
+
+function mensaje() {
+    const mensajeElement = document.getElementById('mensaje');
+    mensajeElement.textContent = "Cantidad atendidos: " + atendidos + "\n Cantidad salio de fila: " + salioDeFila + "\n Maximo de cajas en uso: " + maximoCajasEnUso;
 }

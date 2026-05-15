@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pila Con Nodo</title>
+    <title>Listas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -22,118 +22,7 @@
         </div>
 
         <div class="row mb-3" id="cajascontainer">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
 
-
-
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>ALEJANDRO RAMIREZ</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>DENIS COBAR</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>DERECK RODAS</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>EDUARDO FLORES</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <!--tabla-->
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre Completo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>VLADIMIR ZUNIGA</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
@@ -198,7 +87,8 @@
                                 <button class="btn btn-success"
                                     onclick="lista.ingresarEnPosicion(Number(document.getElementById('valor').value), document.getElementById('nombre').value, document.getElementById('posicion').value)">Ingresar
                                     en Posicion</button>
-                                <button class="btn btn-warning" onclick="lista.generarCaja()">Sumatoria</button>
+
+                                <button class="btn btn-success" onclick="mensaje()">Estadisticas</button>
 
                             </div>
                         </div>
@@ -210,7 +100,8 @@
                                     Inicio</button>
                                 <button class="btn btn-warning" onclick="lista.cantidadElementos()">Cantidad de
                                     Elemento</button>
-                                <button class="btn btn-warning" onclick="lista.Sumatoria()">Sumatoria</button>
+                                <button class="btn btn-warning" onclick="addCaja()">Nueva Caja</button>
+
                             </div>
                         </div>
                     </div>
