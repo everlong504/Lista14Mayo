@@ -152,7 +152,7 @@
                                     <th scope="col">Nombre Completo</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="lista-tbody">
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>DERECK RODAS</td>
@@ -170,7 +170,7 @@
                         <P>Nombre:</P>
                         <div class="row  mb-2">
                             <div class="col">
-                                <input type="number" class="form-control" id="valor" placeholder="Ingresar el Nombre">
+                                <input class="form-control" id="nombre" placeholder="Ingresar el Nombre">
                             </div>
                         </div>
 
@@ -183,20 +183,20 @@
 
                         <div class="row">
                             <div class="col">
-                                <p id="lista"></p>
+                                <p id="mensaje"></p>
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col d-flex gap-2 flex-wrap">
                                 <button class="btn btn-primary"
-                                    onclick="lista.ingresarAlInicio(Number(document.getElementById('valor').value))">Ingresar
+                                    onclick="lista.ingresarAlInicio(Number(document.getElementById('valor').value), document.getElementById('nombre').value)">Ingresar
                                     al Inicio</button>
                                 <button class="btn btn-primary"
-                                    onclick="lista.ingresarAlFinal(Number(document.getElementById('valor').value))">Ingresar
+                                    onclick="lista.ingresarAlFinal(Number(document.getElementById('valor').value), document.getElementById('nombre').value)">Ingresar
                                     al Final</button>
                                 <button class="btn btn-success"
-                                    onclick="lista.ingresarEnPosicion(Number(document.getElementById('valor').value), Number(document.getElementById('posicion').value))">Ingresar
+                                    onclick="lista.ingresarEnPosicion(Number(document.getElementById('valor').value), Number(document.getElementById('nombre').value), document.getElementById('posicion').value)">Ingresar
                                     en Posicion</button>
                                 <button class="btn btn-warning" onclick="lista.generarCaja()">Sumatoria</button> 
 

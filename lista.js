@@ -1,6 +1,6 @@
 
 
-
+//class caja
 class Caja {
     constructor(valor = null, lleno = false) {
         this.valor = valor;
@@ -30,6 +30,7 @@ class Caja {
     }
 }
 
+//clase NODO
 class Nodo {
     constructor(valor, nombre) {
         this.valor = valor;
@@ -39,6 +40,7 @@ class Nodo {
     }
 }
 
+//class lista
 class ListaDoblementeEnlazada {
     constructor() {
         this.cabeza = null;
@@ -46,7 +48,14 @@ class ListaDoblementeEnlazada {
     }
 
     ingresarAlInicio(valor, nombre) {
+
+        if(this.verificarId(valor)){
+            document.getElementById('mensaje').textContent = "El ID ya existe.";
+            return;
+        }
+
         const nuevoNodo = new Nodo(valor, nombre);
+
         if (!this.cabeza) {
             this.cabeza = this.cola = nuevoNodo;
         } else {
@@ -54,11 +63,11 @@ class ListaDoblementeEnlazada {
             this.cabeza.anterior = nuevoNodo;
             this.cabeza = nuevoNodo;
         }
-        this.imprimir();
+        this.imprimirLista();
     }
 
-    ingresarAlFinal(valor) {
-        const nuevoNodo = new Nodo(valor);
+    ingresarAlFinal(valor, nombre) {
+        const nuevoNodo = new Nodo(valor, nombre);
         if (!this.cola) {
             this.cabeza = this.cola = nuevoNodo;
         } else {
@@ -66,13 +75,13 @@ class ListaDoblementeEnlazada {
             this.cola.siguiente = nuevoNodo;
             this.cola = nuevoNodo;
         }
-        this.imprimir();
+        this.imprimirLista();
     }
 
-    ingresarEnPosicion(valor, posicion) {
-        const nuevoNodo = new Nodo(valor);
+    ingresarEnPosicion(valor, nombre, posicion) {
+        const nuevoNodo = new Nodo(valor, nombre);
         if (posicion === 0) {
-            this.ingresarAlInicio(valor);
+            this.ingresarAlInicio(valor, nombre);
             return;
         }
 
@@ -82,11 +91,10 @@ class ListaDoblementeEnlazada {
         }
 
         if (!actual) {
-            this.ingresarAlFinal(valor);
+            this.ingresarAlFinal(valor, nombre);
             return;
         }
 
-        const nuevoNodo = new Nodo(valor);
         nuevoNodo.siguiente = actual.siguiente;
         nuevoNodo.anterior = actual;
 
@@ -100,7 +108,20 @@ class ListaDoblementeEnlazada {
             this.cola = nuevoNodo;
         }
 
-        this.imprimir();
+        this.imprimirLista();
+    }
+
+    verificarId(valor){
+        let actual = this.cabeza;
+        while(actual !== null){
+            if(actual.valor === valor){
+                return true;
+            }
+            actual = actual.siguiente;
+        }
+
+        return false;
+
     }
 
     quitarAlInicio() {
@@ -114,7 +135,7 @@ class ListaDoblementeEnlazada {
             this.cola = null;
         }
 
-        this.imprimir();
+        this.imprimirLista();
     }
 
     quitarAlFinal() {
@@ -128,7 +149,7 @@ class ListaDoblementeEnlazada {
             this.cabeza = null;
         }
 
-        this.imprimir();
+        this.imprimirLista();
     }
 
     imprimir() {
@@ -145,18 +166,32 @@ class ListaDoblementeEnlazada {
         }
     }
 
-    generarCaja() {
-        const listaElementos = document.getElementById("lista");
-        listaElementos.innerHTML = "";
-
+    imprimirLista() {
+    const tbody = document.getElementById("lista-tbody");
+    tbody.innerHTML = "";
         let actual = this.cabeza;
+        let contador = 1;
+        const values = [];
         while (actual) {
-            const li = document.createElement("li");
-            li.textContent = actual.valor;
-            li.classList.add("list-group-item");
-            listaElementos.appendChild(li);
+            const fila = document.createElement("tr");
+            
+            if(contador ===1){
+                fila.classList.add("table-success");
+            }
+
+            fila.innerHTML = `
+
+            <th scope="row">${actual.valor}</th>
+                <td>${actual.nombre}</td>
+                `;
+            tbody.appendChild(fila);
             actual = actual.siguiente;
+            contador++;
         }
+        
+        document.getElementById('mensaje').textContent = " ";
+
+
     }
 
     mostrarValEspecifico(indice) {
@@ -180,17 +215,6 @@ class ListaDoblementeEnlazada {
         return alert("Hay " + contador + " en la lista");
     }
 
-    Sumatoria() {
-        let suma = 0;
-        let actual = this.cabeza;
-
-        while (actual) {
-            suma += actual.valor;
-            actual = actual.siguiente;
-        }
-
-        alert("La sumatoria es de: " + suma);
-    }
 }
 
 const cajas = [new Caja(), new Caja(), new Caja(), new Caja(), new Caja()];
@@ -200,6 +224,60 @@ function printCaja() {
     for (let i = 0; i < cajas.length; i++) {
         console.log('Caja' + i + ': ' + cajas[i].valor + ', ' + cajas[i].lleno);
     }
+}
+
+function generarCaja(id, nombre) {
+    // Crear el contenedor de la columna
+    const colDiv = document.createElement('div');
+    colDiv.className = 'col-md-4 mb-3'; // Ajusta el tamaño según necesites, col-md-4 para mini
+
+    // Crear la card
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+
+    // Crear el card-body
+    const cardBodyDiv = document.createElement('div');
+    cardBodyDiv.className = 'card-body';
+
+    // Crear la tabla
+    const table = document.createElement('table');
+    table.className = 'table';
+
+    // Crear el thead
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    const th1 = document.createElement('th');
+    th1.scope = 'col';
+    th1.textContent = '#';
+    const th2 = document.createElement('th');
+    th2.scope = 'col';
+    th2.textContent = 'Nombre Completo';
+    headerRow.appendChild(th1);
+    headerRow.appendChild(th2);
+    thead.appendChild(headerRow);
+
+    // Crear el tbody
+    const tbody = document.createElement('tbody');
+    const bodyRow = document.createElement('tr');
+    const thRow = document.createElement('th');
+    thRow.scope = 'row';
+    thRow.textContent = id;
+    const td = document.createElement('td');
+    td.textContent = nombre;
+    bodyRow.appendChild(thRow);
+    bodyRow.appendChild(td);
+    tbody.appendChild(bodyRow);
+
+    // Ensamblar la tabla
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    // Ensamblar la card
+    cardBodyDiv.appendChild(table);
+    cardDiv.appendChild(cardBodyDiv);
+    colDiv.appendChild(cardDiv);
+
+    return colDiv;
 }
 
 function addCaja() {
