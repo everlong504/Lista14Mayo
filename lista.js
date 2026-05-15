@@ -1,3 +1,6 @@
+
+
+
 class Caja {
     constructor(valor = null, lleno = false) {
         this.valor = valor;
@@ -29,8 +32,9 @@ class Caja {
 }
 
 class Nodo {
-    constructor(valor) {
+    constructor(valor, nombre) {
         this.valor = valor;
+        this.nombre = nombre;
         this.siguiente = null;
         this.anterior = null;
     }
@@ -42,14 +46,8 @@ class ListaDoblementeEnlazada {
         this.cola = null;
     }
 
-    /* 
-   
-- CantidadElementos()
-- SumarElementos()
-    */
-
-    ingresarAlInicio(valor) {
-        const nuevoNodo = new Nodo(valor);
+    ingresarAlInicio(valor, nombre) {
+        const nuevoNodo = new Nodo(valor, nombre);
         if (!this.cabeza) {
             this.cabeza = this.cola = nuevoNodo;
         } else {
@@ -133,6 +131,19 @@ class ListaDoblementeEnlazada {
         }
     }
 
+    generarCaja() {
+        const listaElementos = document.getElementById("lista");
+        listaElementos.innerHTML = "";
+        let actual = this.cabeza;
+        while (actual) {
+            const li = document.createElement("li");
+            li.textContent = actual.valor;
+            li.classList.add("list-group-item");
+            listaElementos.appendChild(li);
+            actual = actual.siguiente;
+        }
+    }
+
     mostrarValEspecifico(indice) {
         let actual = this.cabeza;
         for (let i = 0; i <= indice; i++) {
@@ -181,3 +192,5 @@ function printCaja() {
 function addCaja() {
     cajas.push(new Caja);
 }
+
+
