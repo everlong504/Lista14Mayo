@@ -78,6 +78,35 @@ class ListaDoblementeEnlazada {
         this.imprimirLista();
     }
 
+    quitarEnPosicion(valor, nombre, posicion) {
+        if (posicion === 0) {
+            this.quitarAlInicio();
+            return;
+        } else if (posicion === this.cantidadElementos() - 1) {
+            this.quitarAlFinal();
+            return;
+        }
+        let actual = this.cabeza;
+        for (let i = 0; i < posicion && actual; i++) {
+            actual = actual.siguiente;
+        }
+        if (!actual) return;
+
+        if (actual.anterior) {
+            actual.anterior.siguiente = actual.siguiente;
+        }
+        if (actual.siguiente) {
+            actual.siguiente.anterior = actual.anterior;
+        }
+        if (actual === this.cabeza) {
+            this.cabeza = actual.siguiente;
+        }
+        if (actual === this.cola) {
+            this.cola = actual.anterior;
+        }
+        this.imprimirLista();
+    }
+
     ingresarEnPosicion(valor, nombre, posicion) {
         const nuevoNodo = new Nodo(valor, nombre);
         if (posicion === 0) {
@@ -185,6 +214,23 @@ class ListaDoblementeEnlazada {
                 <td>${actual.nombre}</td>
                 `;
             tbody.appendChild(fila);
+
+            const eliminarBtn = document.createElement("button");
+            eliminarBtn.classList.add("btn", "btn-danger", "btn-sm");
+            eliminarBtn.textContent = "Eliminar";
+            eliminarBtn.addEventListener("click", () => {
+                if (contador === 1) {
+                    this.quitarAlInicio();
+                } else if (contador === this.cantidadElementos()) {
+                    this.quitarAlFinal();
+                } else {
+                    this.quitarEnPosicion(contador - 1);
+                }
+
+                this.imprimirLista();
+            });
+
+            fila.appendChild(eliminarBtn);
             actual = actual.siguiente;
             contador++;
         }
@@ -212,7 +258,7 @@ class ListaDoblementeEnlazada {
             contador++;
             actual = actual.siguiente;
         }
-        return alert("Hay " + contador + " en la lista");
+        return contador;
     }
 
 }
@@ -237,8 +283,6 @@ function renderCajas() {
     contenedor.innerHTML = "";
 
     cajas.forEach((caja, index) => {
-
-        //if full, become red, if empty, green
         const div = document.createElement("div");
         div.classList.add("col");
 
