@@ -1,4 +1,6 @@
-
+let atendidos = 0;
+let salioDeFila = 0;
+let maximoCajasEnUso = 0;
 
 //class caja
 class Caja {
@@ -226,7 +228,7 @@ class ListaDoblementeEnlazada {
                 } else {
                     this.quitarEnPosicion(contador - 1);
                 }
-
+                salieronDeFila++;
                 this.imprimirLista();
             });
 
@@ -342,6 +344,8 @@ function renderCajas() {
             } else if (!caja.lleno && lista.cabeza !== null) {
                 caja.llenar(lista.cabeza);
                 lista.quitarAlInicio();
+                maximoCajasEnUso++;
+                atendidos++;
                 renderCajas();
             }
         });
@@ -361,4 +365,9 @@ function renderCajas() {
         div.appendChild(card);
         contenedor.appendChild(div);
     });
+}
+
+function mensaje() {
+    const mensajeElement = document.getElementById('mensaje');
+    mensajeElement.textContent = "Cantidad atendidos: " + atendidos + "\n Cantidad salio de fila: " + salioDeFila + "\n Maximo de cajas en uso: " + maximoCajasEnUso;
 }
